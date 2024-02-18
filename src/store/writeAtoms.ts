@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom, atomFamily, selector } from "recoil";
 
 export interface ReviewData {
     id?:number;
@@ -13,7 +13,7 @@ export interface ReviewData {
         rate?: number;
         count?: number;
       };
-    private?:boolean;
+    isPrivate?:boolean;
 }
 
 // 독후감 배열
@@ -36,10 +36,17 @@ export const filterReviewState = atom({
 // 모든 공유리뷰 호출
 export const allReviewSelector = selector({
     key:'allReviewSelector',
-    get:({get}) => {
-        
+    get:({get}) => {  
     }
 })
+
+// 리뷰 전체보기/ 나만 보기 기능
+export const toggleReviewPrivate = atomFamily({
+  key:'toggleReviewPrivate',
+  default:(id) => false,
+})
+
+
 
 export const filteredReviewsState = selector({
     key: 'filteredProductsState',

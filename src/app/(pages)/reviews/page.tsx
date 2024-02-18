@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { allReviewSelector, filterReviewState, getReviewData, reviewState, selectedReviewState } from '@/store/writeAtoms';
+import { allReviewSelector, filterReviewState, getReviewData, reviewState, selectedReviewState, toggleReviewPrivate } from '@/store/writeAtoms';
 
 export interface ReviewData {
     id?:number;
@@ -29,12 +29,15 @@ const ReviewPage = () => {
   
     const [selectedReview, setSelectedReview] = useRecoilState(selectedReviewState);
     const [reviewFilter, setReviewFilter] = useRecoilState(filterReviewState);
-   
+
+
     const filteredReviews = reviewItems.filter((item: ReviewData) => {
         if (reviewFilter === '전체') {
           return true; // 전체 범위 선택 시 모든 리뷰 반환
         }
     });
+
+
  
   return (
         <section className="main">

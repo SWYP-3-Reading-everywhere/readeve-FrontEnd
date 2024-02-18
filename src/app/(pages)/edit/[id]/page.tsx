@@ -1,9 +1,12 @@
 'use client';
 
 import { BookSearch } from "@/app/components/bookSearch";
+import Button from "@/app/components/buttons/button";
 import AddPlace from "@/app/components/map";
 import CustomModal from "@/app/components/modal";
+import { getReviewData, reviewState } from "@/store/writeAtoms";
 import { useCallback, useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 
 const Editor = () => {
@@ -12,6 +15,9 @@ const Editor = () => {
     const [showMap, setShowMap] = useState(false);
     const [selectedPlace, setSelectedPlace] = useState('');
     const [InputText, setInputText] = useState(''); 
+
+    const allReviews = useRecoilValue(getReviewData)
+    const [ reviewData, setReviewData ] = useRecoilState(reviewState);
  
     const handleSearchMap = useCallback((e:any) => {
         e.preventDefault();
@@ -34,6 +40,20 @@ const Editor = () => {
 
       const onMarkerClickParent = (markerInfo: string) => {
         setInputText(markerInfo);
+      };
+
+      const toggleReviewPrivate = (reviewId:number) => {
+        const updatedReviews = allReviews.map((review:any) =>
+            review.id === reviewId ? {...review, isPrivate: !review.isPrivate} : review
+        );
+        // 리뷰 데이터 업데이트
+        setReviewData(updatedReviews);
+      }
+
+      const showAllReviews = () => {
+        const updatedReviews = allReviews.map((review:any) => ({ ...review, isPrivate: false }));
+        
+        setReviewData(updatedReviews);
       };
 
      
@@ -83,8 +103,8 @@ const Editor = () => {
         </section>
         <section className="py-8 flex border border-b-0 border-slate-400 gap-3">
             <div className="tag_name flex mx-auto gap-5">
-                <div className="border bg-red-200 rounded-md">나만보기 </div>
-                <div className="border bg-indigo-200 rounded-md">전체보기</div>
+                <Button label={"나만보기"} outline={false}/>
+                <Button label={"전체보기"} outline={true}/> 
             </div>
         </section>
         <section className="py-8 border border-t-0 border-slate-400 rounded-b-md">
