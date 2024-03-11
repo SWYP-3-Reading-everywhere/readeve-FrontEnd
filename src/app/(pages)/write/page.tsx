@@ -37,6 +37,8 @@ const Editor = () => {
   const [tagData, setTagData] = useState<any>([])
   const [selectedTag, setSelectedTag] = useState<string[]>([])
   const [allDeselect, setAllDeselect] = useState(false)
+  const [contentLimit, setContentLimit] = useState(false);
+
   const [titleInfo, setTitleInfo] = useRecoilState<string>(titleState)
   const [bookInfo] = useRecoilState<any>(bookState)
   const [tagInfo, setTagInfo] = useRecoilState<any>(tagState)
@@ -90,11 +92,13 @@ const Editor = () => {
   const onMarkerClickParent = (markerInfo: string) => {
     setInputText(markerInfo)
   }
+
   const handleTitle = (e: any) => {
     e.preventDefault()
     setTitleInfo(e.target.value)
     console.log(titleInfo)
   }
+
   const fetchTag = async () => {
     try {
       const response = await axios.get(
@@ -141,12 +145,22 @@ const Editor = () => {
   }
   const handleContent = (e: any) => {
     e.preventDefault()
+
+    const contentValue = e.target.value;
+
     setContent(e.target.value)
+    setContentLimit(contentValue.lenght > 1500);
     console.log(content)
   }
 
   const handleAllData = async (e: any) => {
     e.preventDefault()
+
+    if (content.length > 1500) {
+      alert('내용은 1500자 이내로 입력 가능합니다');
+      return;
+    }
+
     let data = {
       socialId: session.data.user!.id,
       title: titleInfo,
@@ -208,11 +222,13 @@ const Editor = () => {
 
     window.location.href = `/mypage/${session.data?.user.id}` // 이동할 경로
   }
+
   useEffect(() => {
     if (tagInfo.length <= 10) {
       fetchTag()
     }
   }, [])
+
   useEffect(() => {
     console.log(selectedTag)
   }, [selectedTag])
@@ -479,6 +495,7 @@ const Editor = () => {
                   label="저장하기"
                   outline={true}
                   onClick={handleAllData}
+                  disabled={contentLimit}
                 />
               </div>
             </div>
