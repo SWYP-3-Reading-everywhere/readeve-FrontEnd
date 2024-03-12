@@ -183,7 +183,7 @@ const Editor = () => {
         isComplete: bookInfo.isComplete,
         author: bookInfo.authors[0],
       },
-      tags: selectedTag
+      tags: selectedTag,
       content: content,
     }
 
