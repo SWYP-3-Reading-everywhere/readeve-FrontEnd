@@ -183,9 +183,7 @@ const Editor = () => {
         isComplete: bookInfo.isComplete,
         author: bookInfo.authors[0],
       },
-      // 중복된 장소여도 선택한 태그들이 노출될 수 있게 변경했는데
-      // 이게 맞는 코드인지는 잘 모르겠네요..! 성관님이 테스트 해보시구 이상하면 수정과 피드백 부탁드려요!
-      tags: selectedTag.length > 0 ? selectedTag : [],
+      tags: selectedTag
       content: content,
     }
 
