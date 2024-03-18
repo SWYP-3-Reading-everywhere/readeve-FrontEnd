@@ -3,13 +3,19 @@
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { Sunflower } from 'next/font/google'
 import CustomModal from './modal'
 import LoginBtn from './buttons/LoginButton'
 import LogoutBtn from './buttons/LogoutButton'
-import NavLogo from '/public/images/NavLogo.png'
+import mainLogo from '/public/images/mainLogo.png'
 import Image from 'next/image'
 import navMapViewIcon from '/public/images/navMapViewIcon.png'
 import navWriteIcon from '/public/images/navWriteIcon.png'
+
+const SunflowerFonts = Sunflower({
+  weight: ['300','500','700'],
+  subsets: ['latin'],
+});
 
 const NavBar = () => {
   const [isLogin, setIsLogin] = useState(false)
@@ -44,14 +50,14 @@ const NavBar = () => {
         {/* 로고와 햄버거 아이콘 */}
         <div className="flex items-center menuLogo">
           {/* 로고 */}
-          <h1 className="self-center justify-start whitespace-nowraps">
+          <div className="flex self-center justify-start whitespace-nowrap">
             <Link href="/">
-              <Image 
-                src={NavLogo} 
-                alt="Logo" 
-                />
+             <div className='flex justify-center items-center gap-2'>
+            <Image src={mainLogo} alt="메인 로고" className="w-[3vw] sm:w-[5vw]" />
+            <h1 className={`${SunflowerFonts.className} sm:text-sm`}>읽는곳곳</h1>
+            </div> 
             </Link>
-          </h1>
+          </div>
 
           {/* 햄버거 아이콘 (sm 화면에서만 보임) */}
           <div className="hidden sm:absolute right-5 top-4 sm:block">

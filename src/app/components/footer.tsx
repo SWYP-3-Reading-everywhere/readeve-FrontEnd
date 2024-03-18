@@ -1,18 +1,24 @@
 import Image from 'next/image'
 import mainTitle from '/public/images/mainTitle.png'
 import mainLogo from '/public/images/mainLogo.png'
+import { Sunflower } from 'next/font/google'
+
+
+const SunflowerFonts = Sunflower({
+  weight: ['300','500','700'],
+  subsets: ['latin'],
+});
 
 const Footer = () => {
   return (
     <footer className="mx-auto text-center bottom-0 footer pt-10 md:p-[3rem] sm:p-[1rem] sm:pt-5 bg-base-200 border border-slate-200 text-[#AAAAAA]">
       <div className="grid grid-flow-col gap-4">
         <div className="footer_logo flex items-center gap-4 p-4 pl-20 sm:p-2 sm:mx-auto">
-          <Image src={mainLogo} alt="메인 로고" className="w-[5vw] sm:w-[8vw]" />
-          <Image
-            src={mainTitle}
-            alt="메인 타이틀"
-            className="md:w-[5vw] sm:w-[10vw]"
-          />
+        <div className='flex justify-center items-center gap-2'>
+             
+             <Image src={mainLogo} alt="메인 로고" className="w-[3vw] sm:w-[5vw]" />
+             <h1 className={`${SunflowerFonts.className} text-black sm:text-sm`}>읽는곳곳</h1>
+             </div> 
         </div>
         <ul className="footer_hidden pt-5 pb-5 grid grid-flow-col gap-4 md:absolute md:right-10">
           <li className="text-sm md:text-xs">
